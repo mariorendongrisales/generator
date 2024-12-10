@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "builds": [{ "src": "app.py", "use": "@vercel/python" }],
+    "env": {
+        "OPENAI_API_KEY": "@openai_api_key"
+    }
+}
