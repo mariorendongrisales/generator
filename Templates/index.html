@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contenido</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Generador de Contenido</h1>
+    <textarea id="promptInput" placeholder="Escribe aquí el tema o la instrucción..." rows="4" cols="50"></textarea>
+    <br><br>
+    <button id="generateBtn">Generar Contenido</button>
+    <h2>Contenido Generado:</h2>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            const prompt = document.getElementById('promptInput').value;
+
+            fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.generated_content) {
+                    document.getElementById('output').innerText = data.generated_content;
+                } else {
+                    document.getElementById('output').innerText = "Error: " + data.error;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
